@@ -1076,6 +1076,11 @@ input {
   cursor: pointer;
 }
 
+#vaciar-carrito {
+  width: 100%;
+  margin-top: 8px;
+}
+
 .boton-secundario:hover {
   background-color: var(--amarillo);
 }

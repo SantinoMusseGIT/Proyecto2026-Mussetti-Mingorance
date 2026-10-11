@@ -270,6 +270,25 @@ const eliminarProducto = (id) => {
         actualizarCarrito();
     }
 };
+/**
+ * Elimina todos los productos guardados en el carrito.
+ * @method vaciarCarrito
+ * @return {void}
+ */
+const vaciarCarrito = () => {
+  const carrito = obtenerCarrito();
+
+  if (carrito.length === 0) {
+    alert("El carrito ya está vacío.");
+    return;
+  }
+
+  if (confirm("¿Querés vaciar todo el carrito?")) {
+    guardarCarrito([]);
+    envioActual = null;
+    actualizarCarrito();
+  }
+};
 
 /**
  * Valida el código postal y calcula el costo de envío.
