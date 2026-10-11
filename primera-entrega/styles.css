@@ -153,7 +153,7 @@ input {
 
   background-color: #ffe600;
 
-  color: white;
+  color: var(--negro);
 
   font-size: 15px;
 
@@ -385,7 +385,7 @@ input {
 
   background-color: #ffe600;
 
-  color: white;
+  color: var(--negro);
 
   border-radius: 4px;
 
