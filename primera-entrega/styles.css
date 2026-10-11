@@ -2,6 +2,14 @@
    ESTILOS GENERALES
 ========================================= */
 
+:root {
+  --amarillo: #ffd600;
+  --negro: #111111;
+  --blanco: #ffffff;
+  --gris: #f5f5f5;
+  --gris-texto: #595959;
+}
+
 * {
   margin: 0;
   padding: 0;
