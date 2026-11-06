@@ -1,6 +1,6 @@
 function Carrito() {
   return (
-    <section>
+    <section className="pagina">
       <h1>Mi carrito</h1>
       <p>Tu carrito está vacío.</p>
     </section>

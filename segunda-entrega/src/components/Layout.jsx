@@ -1,5 +1,7 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 
+const logoUrl = `${import.meta.env.BASE_URL}logo-escape-libre.png`
+
 const obtenerClaseEnlace = ({ isActive }) =>
   isActive ? 'menu__enlace menu__enlace--activo' : 'menu__enlace'
 
@@ -9,7 +11,12 @@ function Layout() {
       <header className="cabecera">
         <div className="cabecera__contenido">
           <Link className="marca" to="/">
-            Escape Libre
+            <img
+              className="marca__logo"
+              src={logoUrl}
+              alt="Logo de Escape Libre"
+            />
+            <span>Escape Libre</span>
           </Link>
 
           <nav className="menu" aria-label="Navegación principal">
