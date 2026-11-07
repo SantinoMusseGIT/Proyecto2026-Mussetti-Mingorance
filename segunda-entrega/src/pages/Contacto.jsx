@@ -75,7 +75,7 @@ function Contacto() {
       setEnviando(true)
       setResultado(null)
 
-      await crearConsulta({
+      const consultaCreada = await crearConsulta({
         ...formulario,
         fecha: new Date().toISOString(),
       })
@@ -84,7 +84,9 @@ function Contacto() {
       setErrores({})
       setResultado({
         tipo: 'exito',
-        mensaje: 'Tu consulta fue enviada correctamente.',
+        mensaje: consultaCreada.almacenamientoLocal
+          ? 'Tu consulta fue guardada correctamente en este dispositivo.'
+          : 'Tu consulta fue enviada correctamente.',
       })
     } catch (error) {
       setResultado({
@@ -120,7 +122,9 @@ function Contacto() {
             autoComplete="name"
             value={formulario.nombre}
             aria-invalid={Boolean(errores.nombre)}
-            aria-describedby={errores.nombre ? 'error-nombre' : undefined}
+            aria-describedby={
+              errores.nombre ? 'error-nombre' : undefined
+            }
             onChange={manejarCambio}
           />
 
@@ -140,7 +144,9 @@ function Contacto() {
             autoComplete="email"
             value={formulario.email}
             aria-invalid={Boolean(errores.email)}
-            aria-describedby={errores.email ? 'error-email' : undefined}
+            aria-describedby={
+              errores.email ? 'error-email' : undefined
+            }
             onChange={manejarCambio}
           />
 

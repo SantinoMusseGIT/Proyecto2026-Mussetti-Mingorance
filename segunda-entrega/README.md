@@ -101,7 +101,7 @@ http://localhost:3001/consultas
 - `src/pages`: páginas de la aplicación.
 - `src/styles`: estilos Sass.
 - `public`: imágenes y archivos públicos.
-- `db.json`: datos utilizados por JSON Server.
+- `public/db.json`: datos utilizados por JSON Server y por la versión publicada.
 
 ## Comprobaciones
 
