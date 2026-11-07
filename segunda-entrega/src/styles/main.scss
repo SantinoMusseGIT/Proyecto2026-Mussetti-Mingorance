@@ -477,40 +477,47 @@ select {
   font-size: 0.85rem;
   font-weight: 700;
 }
+.migas {
+  margin-bottom: 16px;
+  color: $gris-texto;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
 .carrito-vacio {
   display: grid;
   justify-items: start;
   gap: 20px;
+
+  h1 {
+    margin: 0;
+  }
+
+  &__enlace {
+    color: $negro;
+    font-weight: 700;
+    text-decoration: underline;
+  }
 }
 
 .carrito {
-  &__encabezado {
-    display: flex;
-    margin-bottom: 32px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  &__subtitulo {
-    margin-bottom: 8px;
-    color: $gris-texto;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+  h1 {
+    margin-bottom: 36px;
+    font-size: 2.2rem;
   }
 
   &__columnas {
     display: grid;
     align-items: start;
-    gap: 32px;
-    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 48px;
+    grid-template-columns: minmax(0, 2fr) minmax(340px, 1fr);
   }
 
   &__productos {
     display: grid;
-    gap: 18px;
+    gap: 22px;
   }
 }
 
@@ -518,30 +525,31 @@ select {
   display: grid;
   padding: 18px;
   align-items: center;
-  gap: 18px;
+  gap: 22px;
   border: 1px solid #dddddd;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: $blanco;
-  grid-template-columns: 110px minmax(180px, 1fr) auto auto auto;
+  grid-template-columns: 120px minmax(180px, 1fr) auto auto;
 
   &__imagen {
-    width: 110px;
-    height: 90px;
-    border-radius: 8px;
+    width: 120px;
+    height: 100px;
+    border-radius: 6px;
     object-fit: cover;
   }
 
   &__informacion {
     display: grid;
-    gap: 6px;
+    gap: 8px;
 
     h2 {
-      font-size: 1.15rem;
+      font-size: 1.25rem;
     }
   }
 
   &__precio {
-    color: $gris-texto;
+    color: $negro;
+    font-size: 1.1rem;
     font-weight: 700;
   }
 
@@ -550,25 +558,35 @@ select {
     align-items: center;
 
     input {
-      width: 58px;
-      height: 44px;
-      border: 1px solid #bbbbbb;
+      width: 62px;
+      height: 46px;
+      border: 1px solid #777777;
+      background-color: $blanco;
+      color: $negro;
       text-align: center;
-      font: inherit;
     }
   }
 
   &__control {
-    min-width: 42px;
-    height: 44px;
+    min-width: 48px;
+    height: 46px;
     padding: 6px;
+    border-color: $amarillo;
     border-radius: 0;
   }
 
-  &__subtotal {
-    min-width: 120px;
-    font-weight: 700;
-    text-align: right;
+  &__eliminar {
+    padding: 4px;
+    border: 0;
+    background-color: transparent;
+    color: $negro;
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+      color: #7a6200;
+    }
   }
 }
 
@@ -576,41 +594,86 @@ select {
   display: grid;
   position: sticky;
   top: 24px;
-  padding: 24px;
+  padding: 28px;
   gap: 20px;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
+  border-top: 5px solid $amarillo;
+  border-radius: 8px;
   background-color: $blanco;
+
+  h2 {
+    font-size: 1.7rem;
+  }
 
   &__fila {
     display: flex;
     justify-content: space-between;
-    gap: 16px;
+    gap: 20px;
+  }
+
+  &__envio {
+    display: grid;
+    gap: 8px;
+
+    label {
+      font-weight: 600;
+    }
+
+    > div {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      padding: 12px 14px;
+      border: 1px solid #aaaaaa;
+      border-radius: 5px;
+      background-color: $blanco;
+      color: $negro;
+    }
   }
 
   &__total {
-    padding-top: 18px;
+    padding-top: 20px;
     border-top: 1px solid #cccccc;
-    font-size: 1.2rem;
+    font-size: 1.35rem;
   }
 
+  &__finalizar,
   &__vaciar {
     width: 100%;
+    text-transform: uppercase;
+  }
+
+  &__seguir {
+    justify-self: start;
+    padding: 4px 0;
+    border: 0;
+    background-color: transparent;
+    color: $negro;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
   }
 }
 
 @media (max-width: 900px) {
-  .carrito {
-    &__encabezado {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-
-    &__columnas {
-      grid-template-columns: 1fr;
-    }
+  .carrito__columnas {
+    grid-template-columns: 1fr;
   }
 
+  .resumen-carrito {
+    position: static;
+  }
+}
+
+@media (max-width: 650px) {
   .item-carrito {
     align-items: start;
     grid-template-columns: 90px 1fr;
@@ -618,23 +681,29 @@ select {
     &__imagen {
       width: 90px;
       height: 90px;
-      grid-row: 1 / 5;
+      grid-row: 1 / 4;
     }
 
     &__cantidad,
-    &__subtotal,
-    > .button {
+    &__eliminar {
       grid-column: 2;
     }
 
-    &__subtotal {
-      min-width: 0;
-      text-align: left;
+    &__eliminar {
+      justify-self: start;
     }
   }
 
   .resumen-carrito {
-    position: static;
+    padding: 20px;
+
+    &__envio > div {
+      grid-template-columns: 1fr;
+
+      .button {
+        width: 100%;
+      }
+    }
   }
 }
 .contacto {

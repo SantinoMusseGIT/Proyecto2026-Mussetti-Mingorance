@@ -16,7 +16,8 @@ function Catalogo() {
   const [productos, setProductos] = useState([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
-  const [parametrosBusqueda, setParametrosBusqueda] = useSearchParams()
+  const [parametrosBusqueda, setParametrosBusqueda] =
+    useSearchParams()
 
   const busqueda = parametrosBusqueda.get('busqueda') ?? ''
   const terminoBusqueda = busqueda.trim().toLowerCase()
@@ -57,7 +58,9 @@ function Catalogo() {
   }, [])
 
   const actualizarParametro = (nombre, valor) => {
-    const nuevosParametros = new URLSearchParams(parametrosBusqueda)
+    const nuevosParametros = new URLSearchParams(
+      parametrosBusqueda,
+    )
 
     if (valor.trim() === '' || valor === 'todas') {
       nuevosParametros.delete(nombre)
@@ -72,13 +75,15 @@ function Catalogo() {
     () =>
       productos.filter((producto) => {
         const coincideCategoria =
-          categoria === 'todas' || producto.categoria === categoria
+          categoria === 'todas' ||
+          producto.categoria === categoria
 
         const textoProducto =
           `${producto.nombre} ${producto.marca} ${producto.descripcion}`.toLowerCase()
 
         const coincideBusqueda =
-          terminoBusqueda === '' || textoProducto.includes(terminoBusqueda)
+          terminoBusqueda === '' ||
+          textoProducto.includes(terminoBusqueda)
 
         return coincideCategoria && coincideBusqueda
       }),
@@ -104,7 +109,10 @@ function Catalogo() {
       )}
 
       {error && (
-        <p className="mensaje-estado mensaje-estado--error" role="alert">
+        <p
+          className="mensaje-estado mensaje-estado--error"
+          role="alert"
+        >
           {error}
         </p>
       )}
@@ -118,27 +126,38 @@ function Catalogo() {
             <h2>Filtros</h2>
 
             <div className="catalogo__campo">
-              <label htmlFor="filtro-categoria">Categoría</label>
+              <label htmlFor="filtro-categoria">
+                Categoría
+              </label>
 
               <select
                 id="filtro-categoria"
                 value={categoria}
                 onChange={(evento) =>
-                  actualizarParametro('categoria', evento.target.value)
+                  actualizarParametro(
+                    'categoria',
+                    evento.target.value,
+                  )
                 }
               >
-                <option value="todas">Todas las categorías</option>
+                <option value="todas">
+                  Todas las categorías
+                </option>
                 <option value="escapes">Escapes</option>
                 <option value="admision">Admisión</option>
                 <option value="suspension">Suspensión</option>
                 <option value="frenos">Frenos</option>
-                <option value="reprogramacion">Reprogramación</option>
+                <option value="reprogramacion">
+                  Reprogramación
+                </option>
                 <option value="accesorios">Accesorios</option>
               </select>
             </div>
 
             <div className="catalogo__campo">
-              <label htmlFor="buscar-producto">Buscar producto</label>
+              <label htmlFor="buscar-producto">
+                Buscar producto
+              </label>
 
               <input
                 id="buscar-producto"
@@ -146,7 +165,10 @@ function Catalogo() {
                 value={busqueda}
                 placeholder="Ejemplo: escape deportivo"
                 onChange={(evento) =>
-                  actualizarParametro('busqueda', evento.target.value)
+                  actualizarParametro(
+                    'busqueda',
+                    evento.target.value,
+                  )
                 }
               />
             </div>
@@ -168,7 +190,10 @@ function Catalogo() {
             ) : (
               <div className="productos-grid">
                 {productosFiltrados.map((producto) => (
-                  <ProductCard key={producto.id} producto={producto} />
+                  <ProductCard
+                    key={producto.id}
+                    producto={producto}
+                  />
                 ))}
               </div>
             )}
