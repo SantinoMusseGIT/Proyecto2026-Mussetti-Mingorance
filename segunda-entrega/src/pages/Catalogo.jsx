@@ -18,8 +18,8 @@ function Catalogo() {
   const [error, setError] = useState('')
   const [parametrosBusqueda, setParametrosBusqueda] = useSearchParams()
 
-  const terminoBusqueda =
-    parametrosBusqueda.get('busqueda')?.trim().toLowerCase() ?? ''
+  const busqueda = parametrosBusqueda.get('busqueda') ?? ''
+  const terminoBusqueda = busqueda.trim().toLowerCase()
 
   const categoriaParametro =
     parametrosBusqueda.get('categoria') ?? 'todas'
@@ -56,14 +56,13 @@ function Catalogo() {
     }
   }, [])
 
-  const cambiarCategoria = (evento) => {
-    const nuevaCategoria = evento.target.value
+  const actualizarParametro = (nombre, valor) => {
     const nuevosParametros = new URLSearchParams(parametrosBusqueda)
 
-    if (nuevaCategoria === 'todas') {
-      nuevosParametros.delete('categoria')
+    if (valor.trim() === '' || valor === 'todas') {
+      nuevosParametros.delete(nombre)
     } else {
-      nuevosParametros.set('categoria', nuevaCategoria)
+      nuevosParametros.set(nombre, valor)
     }
 
     setParametrosBusqueda(nuevosParametros)
@@ -89,47 +88,14 @@ function Catalogo() {
   return (
     <section className="pagina catalogo">
       <div className="catalogo__encabezado">
-        <div>
-          <p className="catalogo__subtitulo">Productos disponibles</p>
-          <h1>Catálogo de productos</h1>
-        </div>
+        <h1>Catálogo de productos</h1>
 
         {!cargando && !error && (
           <p aria-live="polite">
-            {productosFiltrados.length} productos
+            {productosFiltrados.length} resultados
           </p>
         )}
       </div>
-
-      {!cargando && !error && (
-        <div className="catalogo__filtros">
-          <div>
-            <label htmlFor="filtro-categoria">
-              Filtrar por categoría
-            </label>
-
-            <select
-              id="filtro-categoria"
-              value={categoria}
-              onChange={cambiarCategoria}
-            >
-              <option value="todas">Todas las categorías</option>
-              <option value="escapes">Escapes</option>
-              <option value="admision">Admisión</option>
-              <option value="suspension">Suspensión</option>
-              <option value="frenos">Frenos</option>
-              <option value="reprogramacion">Reprogramación</option>
-              <option value="accesorios">Accesorios</option>
-            </select>
-          </div>
-
-          {terminoBusqueda !== '' && (
-            <p>
-              Resultados para: <strong>{terminoBusqueda}</strong>
-            </p>
-          )}
-        </div>
-      )}
 
       {cargando && (
         <p className="mensaje-estado" role="status">
@@ -143,17 +109,70 @@ function Catalogo() {
         </p>
       )}
 
-      {!cargando && !error && productosFiltrados.length === 0 && (
-        <p className="mensaje-estado" role="status">
-          No se encontraron productos con esos filtros.
-        </p>
-      )}
+      {!cargando && !error && (
+        <div className="catalogo__contenido">
+          <aside
+            className="catalogo__filtros"
+            aria-label="Filtros del catálogo"
+          >
+            <h2>Filtros</h2>
 
-      {!cargando && !error && productosFiltrados.length > 0 && (
-        <div className="productos-grid">
-          {productosFiltrados.map((producto) => (
-            <ProductCard key={producto.id} producto={producto} />
-          ))}
+            <div className="catalogo__campo">
+              <label htmlFor="filtro-categoria">Categoría</label>
+
+              <select
+                id="filtro-categoria"
+                value={categoria}
+                onChange={(evento) =>
+                  actualizarParametro('categoria', evento.target.value)
+                }
+              >
+                <option value="todas">Todas las categorías</option>
+                <option value="escapes">Escapes</option>
+                <option value="admision">Admisión</option>
+                <option value="suspension">Suspensión</option>
+                <option value="frenos">Frenos</option>
+                <option value="reprogramacion">Reprogramación</option>
+                <option value="accesorios">Accesorios</option>
+              </select>
+            </div>
+
+            <div className="catalogo__campo">
+              <label htmlFor="buscar-producto">Buscar producto</label>
+
+              <input
+                id="buscar-producto"
+                type="search"
+                value={busqueda}
+                placeholder="Ejemplo: escape deportivo"
+                onChange={(evento) =>
+                  actualizarParametro('busqueda', evento.target.value)
+                }
+              />
+            </div>
+
+            {terminoBusqueda !== '' && (
+              <p className="catalogo__busqueda-activa">
+                Resultados para: <strong>{busqueda}</strong>
+              </p>
+            )}
+          </aside>
+
+          <div className="catalogo__resultados">
+            <h2>Productos disponibles</h2>
+
+            {productosFiltrados.length === 0 ? (
+              <p className="mensaje-estado" role="status">
+                No se encontraron productos con esos filtros.
+              </p>
+            ) : (
+              <div className="productos-grid">
+                {productosFiltrados.map((producto) => (
+                  <ProductCard key={producto.id} producto={producto} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </section>
