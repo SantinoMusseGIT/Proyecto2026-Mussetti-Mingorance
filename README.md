@@ -1,40 +1,48 @@
 # Escape Libre
 
-**Proyecto de Taller de Desarrollo Web 2026**
+Proyecto de Taller de Desarrollo Web 2026.
 
-## Índice
-
-- [Autores](#autores)
-- [Enlace de la página](#link-de-la-página)
-- [Contenido de la página](#contenido-de-la-página)
-- [Secciones](#secciones)
-- [Tecnologías usadas](#tecnologías-usadas)
+Escape Libre es una tienda web de autopartes y accesorios para mejorar el rendimiento y la estética de vehículos.
 
 ## Autores
 
 - Santino Mussetti
 - Aghassi Mingorance
 
-## Link de la página
+## Entregas
 
-[Ver la web en GitHub Pages](https://santinomussegit.github.io/Proyecto2026-Mussetti-Mingorance/primera-entrega/)
+### Primera entrega
 
-## Contenido de la página
+Sitio desarrollado con HTML, CSS y JavaScript.
 
-Tienda online de **partes de autos para modificaciones**.
+[Ver primera entrega en GitHub Pages](https://santinomussegit.github.io/Proyecto2026-Mussetti-Mingorance/primera-entrega/)
 
-### Secciones
+### Segunda entrega
 
-- Página principal
-- Catálogo
-- Carrito
-- Contacto
+Aplicación desarrollada con React, Vite, Sass y una API simulada con JSON Server.
 
-## Tecnologías usadas
+[Ver segunda entrega en GitHub Pages](https://santinomussegit.github.io/Proyecto2026-Mussetti-Mingorance/segunda-entrega/)
 
-| Tecnología | Uso |
-|------------|-----|
-| HTML5 | Estructura de las páginas |
-| CSS3 | Estilos |
-| JavaScript | Validación y cálculo del carrito |
-| Git y GitHub | Control de versiones y publicación |
+Las instrucciones para ejecutar la aplicación localmente están disponibles en el [README de la segunda entrega](segunda-entrega/README.md).
+
+## Funcionalidades principales
+
+- Catálogo de productos.
+- Búsqueda y filtros.
+- Carrito persistente.
+- Modificación y eliminación de productos del carrito.
+- Formulario de contacto validado.
+- Diseño adaptable a computadoras y celulares.
+
+## Tecnologías utilizadas
+
+- HTML5
+- JavaScript
+- React
+- Vite
+- React Router DOM
+- Sass
+- JSON Server
+- Fetch API
+- localStorage
+- Git y GitHub
