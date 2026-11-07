@@ -397,3 +397,49 @@ select {
       grid-template-columns: 1fr;
   }
 }
+.button {
+  padding: 12px 18px;
+  border: 2px solid $amarillo;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+
+  &--primary {
+    background-color: $amarillo;
+    color: $negro;
+  }
+
+  &--secondary {
+    background-color: transparent;
+    color: $negro;
+  }
+
+  &--danger {
+    border-color: #b42318;
+    background-color: #b42318;
+    color: $blanco;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #1d4ed8;
+    outline-offset: 3px;
+  }
+}
+.producto-card__boton {
+  width: 100%;
+  margin-top: 4px;
+}
+.menu__contador {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  margin-left: 8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $amarillo;
+  color: $negro;
+  font-size: 0.85rem;
+  font-weight: 700;
+}

@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types'
+import Button from '@/components/Button'
+import useCarrito from '@/hooks/useCarrito'
 
 const formateadorPrecio = new Intl.NumberFormat('es-AR', {
   style: 'currency',
@@ -7,6 +9,7 @@ const formateadorPrecio = new Intl.NumberFormat('es-AR', {
 })
 
 function ProductCard({ producto }) {
+  const { agregarProducto } = useCarrito()
   const imagenUrl = `${import.meta.env.BASE_URL}productos/${producto.imagen}`
 
   return (
@@ -23,9 +26,17 @@ function ProductCard({ producto }) {
         <h2>{producto.nombre}</h2>
         <p className="producto-card__marca">Marca: {producto.marca}</p>
         <p>{producto.descripcion}</p>
+
         <p className="producto-card__precio">
           {formateadorPrecio.format(producto.precio)}
         </p>
+
+        <Button
+          className="producto-card__boton"
+          onClick={() => agregarProducto(producto)}
+        >
+          Agregar al carrito
+        </Button>
       </div>
     </article>
   )

@@ -1,11 +1,15 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import SearchBar from '@/components/SearchBar'
+import useCarrito from '@/hooks/useCarrito'
+
 const logoUrl = `${import.meta.env.BASE_URL}logo-escape-libre.png`
 
 const obtenerClaseEnlace = ({ isActive }) =>
   isActive ? 'menu__enlace menu__enlace--activo' : 'menu__enlace'
 
 function Layout() {
+  const { cantidadTotal } = useCarrito()
+
   return (
     <div className="aplicacion">
       <header className="cabecera">
@@ -18,17 +22,29 @@ function Layout() {
             />
             <span>Escape Libre</span>
           </Link>
+
           <SearchBar />
+
           <nav className="menu" aria-label="Navegación principal">
             <NavLink className={obtenerClaseEnlace} to="/" end>
               Inicio
             </NavLink>
+
             <NavLink className={obtenerClaseEnlace} to="/catalogo">
               Catálogo
             </NavLink>
-            <NavLink className={obtenerClaseEnlace} to="/carrito">
+
+            <NavLink
+              className={obtenerClaseEnlace}
+              to="/carrito"
+              aria-label={`Carrito con ${cantidadTotal} productos`}
+            >
               Carrito
+              <span className="menu__contador" aria-hidden="true">
+                {cantidadTotal}
+              </span>
             </NavLink>
+
             <NavLink className={obtenerClaseEnlace} to="/contacto">
               Contacto
             </NavLink>
