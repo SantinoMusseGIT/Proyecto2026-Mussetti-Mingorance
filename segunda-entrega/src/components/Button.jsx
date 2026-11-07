@@ -5,12 +5,18 @@ function Button({
   type = 'button',
   variant = 'primary',
   className = '',
+  disabled = false,
   onClick,
 }) {
   const classes = `button button--${variant} ${className}`.trim()
 
   return (
-    <button className={classes} type={type} onClick={onClick}>
+    <button
+      className={classes}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </button>
   )
@@ -21,6 +27,7 @@ Button.propTypes = {
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   variant: PropTypes.oneOf(['primary', 'secondary', 'danger']),
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
 }
 

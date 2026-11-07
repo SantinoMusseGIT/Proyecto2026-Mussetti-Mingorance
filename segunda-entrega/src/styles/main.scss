@@ -425,6 +425,10 @@ select {
     outline: 3px solid #1d4ed8;
     outline-offset: 3px;
   }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
 }
 .producto-card__boton {
   width: 100%;
@@ -601,5 +605,109 @@ select {
 
   .resumen-carrito {
     position: static;
+  }
+}
+.contacto {
+  max-width: 900px;
+
+  &__encabezado {
+    max-width: 650px;
+    margin-bottom: 32px;
+
+    h1 {
+      margin-bottom: 12px;
+    }
+  }
+
+  &__subtitulo {
+    margin-bottom: 8px;
+    color: $gris-texto;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+.formulario-contacto {
+  display: grid;
+  max-width: 700px;
+  padding: 28px;
+  gap: 24px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  background-color: $blanco;
+
+  > .button {
+    justify-self: start;
+  }
+
+  &__resultado {
+    padding: 14px 16px;
+    border-left: 4px solid;
+    border-radius: 4px;
+
+    &--exito {
+      border-color: #147d3f;
+      background-color: #e7f6ec;
+      color: #0d5f2e;
+    }
+
+    &--error {
+      border-color: #b42318;
+      background-color: #fce8e6;
+      color: #8a1c13;
+    }
+  }
+}
+
+.campo-formulario {
+  display: grid;
+  gap: 8px;
+
+  label {
+    font-weight: 700;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    background-color: $blanco;
+    color: $negro;
+    font: inherit;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: #1d4ed8;
+    outline: 3px solid rgba(#1d4ed8, 0.2);
+  }
+
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: #b42318;
+  }
+
+  &__error {
+    color: #8a1c13;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 650px) {
+  .formulario-contacto {
+    padding: 20px;
+
+    > .button {
+      width: 100%;
+    }
   }
 }
