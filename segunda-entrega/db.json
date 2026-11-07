@@ -1,7 +1,7 @@
 {
   "productos": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Escape deportivo",
       "descripcion": "Escape de alto rendimiento para mejorar el sonido y la respuesta del vehículo.",
       "categoria": "escapes",
@@ -10,7 +10,7 @@
       "imagen": "escape-deportivo.png"
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Suspensión deportiva",
       "descripcion": "Kit de suspensión para mejorar la estabilidad y reducir la altura del vehículo.",
       "categoria": "suspension",
@@ -19,7 +19,7 @@
       "imagen": "suspension-deportiva.png"
     },
     {
-      "id": 3,
+      "id": "3",
       "nombre": "Filtro de aire deportivo",
       "descripcion": "Filtro de alto flujo, lavable y reutilizable, para mejorar la respuesta del motor.",
       "categoria": "admision",
@@ -28,7 +28,7 @@
       "imagen": "filtro-aire.png"
     },
     {
-      "id": 4,
+      "id": "4",
       "nombre": "Resortes deportivos",
       "descripcion": "Resortes cortos para bajar la altura del vehículo y mejorar su comportamiento en curva.",
       "categoria": "suspension",
@@ -37,7 +37,7 @@
       "imagen": "resortes-deportivos.png"
     },
     {
-      "id": 5,
+      "id": "5",
       "nombre": "Módulo de reprogramación",
       "descripcion": "Módulo electrónico para ajustar la entrega de potencia del motor.",
       "categoria": "reprogramacion",
@@ -46,7 +46,7 @@
       "imagen": "fueltech-ecu.png"
     },
     {
-      "id": 6,
+      "id": "6",
       "nombre": "Volante deportivo",
       "descripcion": "Volante de cuero con agarre firme y diseño de menor diámetro.",
       "categoria": "accesorios",
@@ -55,7 +55,7 @@
       "imagen": "volante-momo.png"
     },
     {
-      "id": 7,
+      "id": "7",
       "nombre": "Pomo de cambio deportivo",
       "descripcion": "Pomo de cambio de aluminio para un accionamiento más preciso.",
       "categoria": "accesorios",
@@ -64,7 +64,7 @@
       "imagen": "pomo-cambio.png"
     },
     {
-      "id": 8,
+      "id": "8",
       "nombre": "Discos de freno Brembo",
       "descripcion": "Discos ventilados de alto rendimiento para frenadas más firmes y constantes.",
       "categoria": "frenos",
@@ -72,5 +72,7 @@
       "precio": 600000,
       "imagen": "discos-freno.png"
     }
-  ]
+  ],
+  "consultas": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
