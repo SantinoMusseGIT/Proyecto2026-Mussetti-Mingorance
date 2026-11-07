@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { obtenerProductos } from '@/api/productos'
 import ProductCard from '@/components/ProductCard'
 
 function Catalogo() {
   const [productos, setProductos] = useState([])
+  const [categoria, setCategoria] = useState('todas')
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
+  const [parametrosBusqueda] = useSearchParams()
+
+  const terminoBusqueda =
+    parametrosBusqueda.get('busqueda')?.trim().toLowerCase() ?? ''
 
   useEffect(() => {
     let componenteActivo = true
@@ -35,6 +41,23 @@ function Catalogo() {
     }
   }, [])
 
+  const productosFiltrados = useMemo(
+    () =>
+      productos.filter((producto) => {
+        const coincideCategoria =
+          categoria === 'todas' || producto.categoria === categoria
+
+        const textoProducto =
+          `${producto.nombre} ${producto.marca} ${producto.descripcion}`.toLowerCase()
+
+        const coincideBusqueda =
+          terminoBusqueda === '' || textoProducto.includes(terminoBusqueda)
+
+        return coincideCategoria && coincideBusqueda
+      }),
+    [categoria, productos, terminoBusqueda],
+  )
+
   return (
     <section className="pagina catalogo">
       <div className="catalogo__encabezado">
@@ -44,9 +67,38 @@ function Catalogo() {
         </div>
 
         {!cargando && !error && (
-          <p aria-live="polite">{productos.length} productos</p>
+          <p aria-live="polite">
+            {productosFiltrados.length} productos
+          </p>
         )}
       </div>
+
+      {!cargando && !error && (
+        <div className="catalogo__filtros">
+          <div>
+            <label htmlFor="filtro-categoria">Filtrar por categoría</label>
+            <select
+              id="filtro-categoria"
+              value={categoria}
+              onChange={(evento) => setCategoria(evento.target.value)}
+            >
+              <option value="todas">Todas las categorías</option>
+              <option value="escapes">Escapes</option>
+              <option value="admision">Admisión</option>
+              <option value="suspension">Suspensión</option>
+              <option value="frenos">Frenos</option>
+              <option value="reprogramacion">Reprogramación</option>
+              <option value="accesorios">Accesorios</option>
+            </select>
+          </div>
+
+          {terminoBusqueda !== '' && (
+            <p>
+              Resultados para: <strong>{terminoBusqueda}</strong>
+            </p>
+          )}
+        </div>
+      )}
 
       {cargando && (
         <p className="mensaje-estado" role="status">
@@ -60,9 +112,15 @@ function Catalogo() {
         </p>
       )}
 
-      {!cargando && !error && (
+      {!cargando && !error && productosFiltrados.length === 0 && (
+        <p className="mensaje-estado" role="status">
+          No se encontraron productos con esos filtros.
+        </p>
+      )}
+
+      {!cargando && !error && productosFiltrados.length > 0 && (
         <div className="productos-grid">
-          {productos.map((producto) => (
+          {productosFiltrados.map((producto) => (
             <ProductCard key={producto.id} producto={producto} />
           ))}
         </div>

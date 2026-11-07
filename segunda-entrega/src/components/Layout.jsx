@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
-
+import SearchBar from '@/components/SearchBar'
 const logoUrl = `${import.meta.env.BASE_URL}logo-escape-libre.png`
 
 const obtenerClaseEnlace = ({ isActive }) =>
@@ -18,7 +18,7 @@ function Layout() {
             />
             <span>Escape Libre</span>
           </Link>
-
+          <SearchBar />
           <nav className="menu" aria-label="Navegación principal">
             <NavLink className={obtenerClaseEnlace} to="/" end>
               Inicio
