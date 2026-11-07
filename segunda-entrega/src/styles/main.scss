@@ -118,7 +118,7 @@ select {
 .portada {
   position: relative;
   display: flex;
-  min-height: 660px;
+  height: 570px;
   align-items: center;
   overflow: hidden;
   color: $blanco;
@@ -153,7 +153,7 @@ select {
     h1 {
       max-width: 720px;
       margin: 20px 0;
-      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-size: clamp(3rem, 6vw, 5.125rem);
       line-height: 0.95;
       text-transform: uppercase;
 
@@ -282,7 +282,7 @@ select {
   }
 
   .portada {
-    min-height: 600px;
+    height: 480px;
 
     &::after {
       background-color: rgba($negro, 0.7);
@@ -290,7 +290,7 @@ select {
     }
 
     &__contenido h1 {
-      font-size: clamp(3rem, 15vw, 5rem);
+      font-size: 3.25rem;
     }
   }
 }
@@ -709,5 +709,196 @@ select {
     > .button {
       width: 100%;
     }
+  }
+}
+.beneficios {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  width: min(1300px, calc(100% - 32px));
+  margin: -30px auto 0;
+  border-radius: 6px;
+  background-color: $blanco;
+  box-shadow: 0 8px 30px rgba($negro, 0.12);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.beneficio {
+  display: flex;
+  min-height: 110px;
+  padding: 24px;
+  align-items: center;
+  gap: 15px;
+  border-right: 1px solid #e5e5e5;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  &__icono {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin-bottom: 4px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: $gris-texto;
+    font-size: 0.9rem;
+  }
+}
+
+.categorias-destacadas {
+  width: min(1300px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 90px 0;
+
+  &__encabezado {
+    display: flex;
+    margin-bottom: 40px;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+
+    h2 {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      text-transform: uppercase;
+    }
+
+    > a {
+      color: #7a6200;
+      font-weight: 700;
+    }
+  }
+
+  &__subtitulo {
+    margin-bottom: 8px;
+    color: #7a6200;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  &__grilla {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.categoria-destacada {
+  position: relative;
+  display: block;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: $negro;
+  color: $blanco;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img,
+  &:focus-visible img {
+    transform: scale(1.07);
+  }
+
+  &:focus-visible {
+    outline: 4px solid $amarillo;
+    outline-offset: 3px;
+  }
+
+  &__sombra {
+    position: absolute;
+    background: linear-gradient(
+      to top,
+      rgba($negro, 0.88),
+      rgba($negro, 0.15) 65%
+    );
+    inset: 0;
+  }
+
+  &__contenido {
+    position: absolute;
+    display: grid;
+    z-index: 2;
+    bottom: 24px;
+    left: 24px;
+    gap: 6px;
+
+    strong {
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    span {
+      color: $blanco;
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .portada {
+    height: 500px;
+  }
+
+  .beneficios {
+    margin-top: 0;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .beneficio {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .categorias-destacadas__grilla {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .portada {
+    height: 480px;
+  }
+
+  .beneficios {
+    width: 100%;
+    border-radius: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .beneficio {
+    min-height: 90px;
+    border-right: 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .categorias-destacadas {
+    padding: 60px 0;
+
+    &__encabezado {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    &__grilla {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .categoria-destacada {
+    height: 260px;
   }
 }

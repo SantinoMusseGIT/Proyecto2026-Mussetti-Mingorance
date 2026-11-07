@@ -3,15 +3,30 @@ import { useSearchParams } from 'react-router-dom'
 import { obtenerProductos } from '@/api/productos'
 import ProductCard from '@/components/ProductCard'
 
+const categoriasValidas = [
+  'escapes',
+  'admision',
+  'suspension',
+  'frenos',
+  'reprogramacion',
+  'accesorios',
+]
+
 function Catalogo() {
   const [productos, setProductos] = useState([])
-  const [categoria, setCategoria] = useState('todas')
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
-  const [parametrosBusqueda] = useSearchParams()
+  const [parametrosBusqueda, setParametrosBusqueda] = useSearchParams()
 
   const terminoBusqueda =
     parametrosBusqueda.get('busqueda')?.trim().toLowerCase() ?? ''
+
+  const categoriaParametro =
+    parametrosBusqueda.get('categoria') ?? 'todas'
+
+  const categoria = categoriasValidas.includes(categoriaParametro)
+    ? categoriaParametro
+    : 'todas'
 
   useEffect(() => {
     let componenteActivo = true
@@ -40,6 +55,19 @@ function Catalogo() {
       componenteActivo = false
     }
   }, [])
+
+  const cambiarCategoria = (evento) => {
+    const nuevaCategoria = evento.target.value
+    const nuevosParametros = new URLSearchParams(parametrosBusqueda)
+
+    if (nuevaCategoria === 'todas') {
+      nuevosParametros.delete('categoria')
+    } else {
+      nuevosParametros.set('categoria', nuevaCategoria)
+    }
+
+    setParametrosBusqueda(nuevosParametros)
+  }
 
   const productosFiltrados = useMemo(
     () =>
@@ -76,11 +104,14 @@ function Catalogo() {
       {!cargando && !error && (
         <div className="catalogo__filtros">
           <div>
-            <label htmlFor="filtro-categoria">Filtrar por categoría</label>
+            <label htmlFor="filtro-categoria">
+              Filtrar por categoría
+            </label>
+
             <select
               id="filtro-categoria"
               value={categoria}
-              onChange={(evento) => setCategoria(evento.target.value)}
+              onChange={cambiarCategoria}
             >
               <option value="todas">Todas las categorías</option>
               <option value="escapes">Escapes</option>
