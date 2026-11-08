@@ -1,61 +1,61 @@
-import { Link } from 'react-router-dom'
-import portadaTaller from '@/assets/portada-taller.png'
+import { Link } from "react-router-dom";
+import portadaTaller from "@/assets/portada-taller.png";
 
 const beneficios = [
   {
-    icono: '🚚',
-    titulo: 'Envíos a todo el país',
-    descripcion: 'Rápidos y seguros',
+    icono: "🚚",
+    titulo: "Envíos a todo el país",
+    descripcion: "Rápidos y seguros",
   },
   {
-    icono: '💳',
-    titulo: 'Hasta 12 cuotas',
-    descripcion: 'Sin interés',
+    icono: "💳",
+    titulo: "Hasta 12 cuotas",
+    descripcion: "Sin interés",
   },
   {
-    icono: '🔒',
-    titulo: 'Compra protegida',
-    descripcion: 'Tu seguridad es nuestra prioridad',
+    icono: "🔒",
+    titulo: "Compra protegida",
+    descripcion: "Tu seguridad es nuestra prioridad",
   },
   {
-    icono: '🛠️',
-    titulo: 'Asesoramiento experto',
-    descripcion: 'Estamos para ayudarte',
+    icono: "🛠️",
+    titulo: "Asesoramiento experto",
+    descripcion: "Estamos para ayudarte",
   },
-]
+];
 
 const categorias = [
   {
-    nombre: 'Escapes',
-    valor: 'escapes',
-    imagen: 'escape-deportivo.png',
+    nombre: "Escapes",
+    valor: "escapes",
+    imagen: "escape-deportivo.png",
   },
   {
-    nombre: 'Admisión',
-    valor: 'admision',
-    imagen: 'filtro-aire.png',
+    nombre: "Admisión",
+    valor: "admision",
+    imagen: "filtro-aire.png",
   },
   {
-    nombre: 'Suspensión',
-    valor: 'suspension',
-    imagen: 'suspension-deportiva.png',
+    nombre: "Suspensión",
+    valor: "suspension",
+    imagen: "suspension-deportiva.png",
   },
   {
-    nombre: 'Frenos',
-    valor: 'frenos',
-    imagen: 'discos-freno.png',
+    nombre: "Frenos",
+    valor: "frenos",
+    imagen: "discos-freno.png",
   },
   {
-    nombre: 'Reprogramación',
-    valor: 'reprogramacion',
-    imagen: 'fueltech-ecu.png',
+    nombre: "Reprogramación",
+    valor: "reprogramacion",
+    imagen: "fueltech-ecu.png",
   },
   {
-    nombre: 'Accesorios',
-    valor: 'accesorios',
-    imagen: 'volante-momo.png',
+    nombre: "Accesorios",
+    valor: "accesorios",
+    imagen: "volante-momo.png",
   },
-]
+];
 
 function Inicio() {
   return (
@@ -114,8 +114,7 @@ function Inicio() {
 
         <div className="categorias-destacadas__grilla">
           {categorias.map((categoria) => {
-            const imagenUrl =
-              `${import.meta.env.BASE_URL}productos/${categoria.imagen}`
+            const imagenUrl = `${import.meta.env.BASE_URL}productos/${categoria.imagen}`;
 
             return (
               <Link
@@ -123,7 +122,10 @@ function Inicio() {
                 key={categoria.valor}
                 to={`/catalogo?categoria=${categoria.valor}`}
               >
-                <img src={imagenUrl} alt="" />
+                <img
+                  src={imagenUrl}
+                  alt={`Productos de la categoría ${categoria.nombre}`}
+                />
 
                 <span className="categoria-destacada__sombra" />
 
@@ -132,12 +134,12 @@ function Inicio() {
                   <span>Ver productos →</span>
                 </span>
               </Link>
-            )
+            );
           })}
         </div>
       </section>
     </>
-  )
+  );
 }
 
-export default Inicio
+export default Inicio;

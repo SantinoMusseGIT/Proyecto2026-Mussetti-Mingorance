@@ -1,19 +1,20 @@
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
+import baseDatos from '@/data/db.json'
+
+const API_URL =
+  import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
 const obtenerProductos = async () => {
-  const url = import.meta.env.PROD
-    ? `${import.meta.env.BASE_URL}db.json`
-    : `${API_URL}/productos`
+  if (import.meta.env.PROD) {
+    return baseDatos.productos
+  }
 
-  const respuesta = await fetch(url)
+  const respuesta = await fetch(`${API_URL}/productos`)
 
   if (!respuesta.ok) {
     throw new Error('No fue posible obtener los productos.')
   }
 
-  const datos = await respuesta.json()
-
-  return import.meta.env.PROD ? datos.productos : datos
+  return respuesta.json()
 }
 
 export { obtenerProductos }

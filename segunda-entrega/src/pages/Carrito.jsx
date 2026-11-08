@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import Button from '@/components/Button'
-import useCarrito from '@/hooks/useCarrito'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "@/components/Button";
+import useCarrito from "@/hooks/useCarrito";
 
-const formateadorPrecio = new Intl.NumberFormat('es-AR', {
-  style: 'currency',
-  currency: 'ARS',
+const formateadorPrecio = new Intl.NumberFormat("es-AR", {
+  style: "currency",
+  currency: "ARS",
   maximumFractionDigits: 0,
-})
+});
 
 function Carrito() {
-  const navigate = useNavigate()
-  const [codigoPostal, setCodigoPostal] = useState('')
-  const [envio, setEnvio] = useState(null)
+  const navigate = useNavigate();
+  const [codigoPostal, setCodigoPostal] = useState("");
+  const [envio, setEnvio] = useState(null);
 
   const {
     carrito,
@@ -20,64 +20,86 @@ function Carrito() {
     cambiarCantidad,
     eliminarProducto,
     vaciarCarrito,
-  } = useCarrito()
+  } = useCarrito();
 
   const subtotal = carrito.reduce(
-    (acumulado, producto) =>
-      acumulado + producto.precio * producto.cantidad,
+    (acumulado, producto) => acumulado + producto.precio * producto.cantidad,
     0,
-  )
+  );
 
-  const total = subtotal + (envio ?? 0)
+  const total = subtotal + (envio ?? 0);
+
+  const manejarCambioCantidad = (evento, productoId) => {
+    const numeroIngresado = Number(evento.target.value);
+
+    const cantidadValida =
+      Number.isInteger(numeroIngresado) && numeroIngresado >= 1
+        ? Math.min(numeroIngresado, 99)
+        : 1;
+
+    evento.target.value = String(cantidadValida);
+    cambiarCantidad(productoId, cantidadValida);
+  };
 
   const calcularEnvio = () => {
     const codigoValido =
-      /^\d{4}$/.test(codigoPostal) && Number(codigoPostal) >= 1000
+      /^\d{4}$/.test(codigoPostal) && Number(codigoPostal) >= 1000;
 
     if (!codigoValido) {
-      window.alert('Ingresá un código postal válido de 4 números.')
-      setCodigoPostal('')
-      setEnvio(null)
-      return
+      window.alert("Ingresá un código postal válido de 4 números.");
+      setCodigoPostal("");
+      setEnvio(null);
+      return;
     }
 
-    if (codigoPostal.startsWith('5')) {
-      setEnvio(8000)
+    if (codigoPostal.startsWith("5")) {
+      setEnvio(8000);
     } else {
-      setEnvio(15000)
+      setEnvio(15000);
     }
-  }
+  };
 
   const finalizarCompra = () => {
+    const cantidadesInvalidas = carrito.some((producto) => {
+      const cantidad = Number(producto.cantidad);
+
+      return !Number.isInteger(cantidad) || cantidad < 1;
+    });
+
+    if (cantidadesInvalidas) {
+      window.alert("Todos los productos deben tener una cantidad mínima de 1.");
+      return;
+    }
+
     if (envio === null) {
-      window.alert('Calculá el envío antes de finalizar la compra.')
-      return
+      window.alert("Calculá el envío antes de finalizar la compra.");
+      return;
     }
 
     window.alert(
       `¡Gracias por tu compra! Total a pagar: ${formateadorPrecio.format(total)}`,
-    )
-  }
+    );
+  };
 
   const confirmarEliminacion = (producto) => {
     const confirmar = window.confirm(
       `¿Querés quitar ${producto.nombre} del carrito?`,
-    )
+    );
 
     if (confirmar) {
-      eliminarProducto(producto.id)
+      eliminarProducto(producto.id);
     }
-  }
+  };
 
   const confirmarVaciado = () => {
-    const confirmar = window.confirm('¿Querés vaciar todo el carrito?')
+    const confirmar = window.confirm("¿Querés vaciar todo el carrito?");
 
     if (confirmar) {
-      vaciarCarrito()
-      setEnvio(null)
-      setCodigoPostal('')
+      vaciarCarrito();
+      setEnvio(null);
+      setCodigoPostal("");
     }
-  }
+  };
 
   if (carrito.length === 0) {
     return (
@@ -89,17 +111,16 @@ function Carrito() {
         <h1>Mi carrito (0 productos)</h1>
 
         <p>
-          Tu carrito está vacío.{' '}
+          Tu carrito está vacío.{" "}
           <Link className="carrito-vacio__enlace" to="/catalogo">
             Ver el catálogo
           </Link>
         </p>
       </section>
-    )
+    );
   }
 
-  const palabraProducto =
-    cantidadTotal === 1 ? 'producto' : 'productos'
+  const palabraProducto = cantidadTotal === 1 ? "producto" : "productos";
 
   return (
     <section className="pagina carrito">
@@ -114,8 +135,7 @@ function Carrito() {
       <div className="carrito__columnas">
         <div className="carrito__productos">
           {carrito.map((producto) => {
-            const imagenUrl =
-              `${import.meta.env.BASE_URL}productos/${producto.imagen}`
+            const imagenUrl = `${import.meta.env.BASE_URL}productos/${producto.imagen}`;
 
             return (
               <article className="item-carrito" key={producto.id}>
@@ -139,10 +159,7 @@ function Carrito() {
                     className="item-carrito__control"
                     aria-label={`Restar una unidad de ${producto.nombre}`}
                     onClick={() =>
-                      cambiarCantidad(
-                        producto.id,
-                        producto.cantidad - 1,
-                      )
+                      cambiarCantidad(producto.id, producto.cantidad - 1)
                     }
                   >
                     −
@@ -163,10 +180,7 @@ function Carrito() {
                     step="1"
                     value={producto.cantidad}
                     onChange={(evento) =>
-                      cambiarCantidad(
-                        producto.id,
-                        evento.target.value,
-                      )
+                      manejarCambioCantidad(evento, producto.id)
                     }
                   />
 
@@ -175,10 +189,7 @@ function Carrito() {
                     className="item-carrito__control"
                     aria-label={`Sumar una unidad de ${producto.nombre}`}
                     onClick={() =>
-                      cambiarCantidad(
-                        producto.id,
-                        producto.cantidad + 1,
-                      )
+                      cambiarCantidad(producto.id, producto.cantidad + 1)
                     }
                   >
                     +
@@ -193,14 +204,11 @@ function Carrito() {
                   Eliminar
                 </button>
               </article>
-            )
+            );
           })}
         </div>
 
-        <aside
-          className="resumen-carrito"
-          aria-label="Resumen de compra"
-        >
+        <aside className="resumen-carrito" aria-label="Resumen de compra">
           <h2>Resumen de compra</h2>
 
           <div className="resumen-carrito__fila">
@@ -212,9 +220,7 @@ function Carrito() {
             <span>Envío</span>
 
             <strong>
-              {envio === null
-                ? 'A calcular'
-                : formateadorPrecio.format(envio)}
+              {envio === null ? "A calcular" : formateadorPrecio.format(envio)}
             </strong>
           </div>
 
@@ -231,16 +237,12 @@ function Carrito() {
                 placeholder="Ej: 5000"
                 onChange={(evento) =>
                   setCodigoPostal(
-                    evento.target.value.replace(/\D/g, '').slice(0, 4),
+                    evento.target.value.replace(/\D/g, "").slice(0, 4),
                   )
                 }
               />
 
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={calcularEnvio}
-              >
+              <Button variant="secondary" type="button" onClick={calcularEnvio}>
                 Calcular envío
               </Button>
             </div>
@@ -271,14 +273,14 @@ function Carrito() {
           <button
             type="button"
             className="resumen-carrito__seguir"
-            onClick={() => navigate('/catalogo')}
+            onClick={() => navigate("/catalogo")}
           >
             ← Seguir comprando
           </button>
         </aside>
       </div>
     </section>
-  )
+  );
 }
 
-export default Carrito
+export default Carrito;

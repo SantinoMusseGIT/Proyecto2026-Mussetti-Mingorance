@@ -423,8 +423,8 @@ select {
     width: 100%;
     min-width: 0;
   }
-    .productos-grid {
-      grid-template-columns: 1fr;
+  .productos-grid {
+    grid-template-columns: 1fr;
   }
 }
 .button {
@@ -723,7 +723,7 @@ select {
     color: $gris-texto;
     font-size: 0.9rem;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
   }
 }
@@ -789,8 +789,8 @@ select {
     outline: 3px solid rgba(#1d4ed8, 0.2);
   }
 
-  input[aria-invalid='true'],
-  textarea[aria-invalid='true'] {
+  input[aria-invalid="true"],
+  textarea[aria-invalid="true"] {
     border-color: #b42318;
   }
 
@@ -868,14 +868,14 @@ select {
     }
 
     > a {
-      color: #b38f00;
+      color: #665200;
       font-weight: 700;
     }
   }
 
   &__subtitulo {
     margin-bottom: 8px;
-    color: #8a7000;
+    color: #665200;
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 3px;

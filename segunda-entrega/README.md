@@ -101,7 +101,8 @@ http://localhost:3001/consultas
 - `src/pages`: páginas de la aplicación.
 - `src/styles`: estilos Sass.
 - `public`: imágenes y archivos públicos.
-- `public/db.json`: datos utilizados por JSON Server y por la versión publicada.
+- `src/data`: contiene `db.json`, utilizado por JSON Server y como fuente de productos para la versión publicada.
+- `src/layout`: contiene la estructura general compartida por las páginas.
 
 ## Comprobaciones
 
